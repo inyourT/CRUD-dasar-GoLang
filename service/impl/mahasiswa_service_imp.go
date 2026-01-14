@@ -66,12 +66,28 @@ func (m *MahasiswaServiceImpl) Delete(ctx context.Context, id int) {
 
 // FindAll implements [service.MahasiswaService].
 func (m *MahasiswaServiceImpl) FindAll(ctx context.Context) []mahasiswa.MahasiswaResponse {
-	panic("unimplemented")
+	tx, err := m.DB.Begin()
+	helper.PanicIfError(err)
+	defer helper.CommitOrRollback(tx)
+
+	mahasiswa := m.MahasiswaRepository.FindAll(ctx, tx)
+
+	return helper.ToMahasiswaResponses(mahasiswa)
 }
 
 // FindID implements [service.MahasiswaService].
 func (m *MahasiswaServiceImpl) FindByID(ctx context.Context, id int) mahasiswa.MahasiswaResponse {
-	panic("unimplemented")
+	tx, err := m.DB.Begin()
+	helper.PanicIfError(err)
+	defer helper.CommitOrRollback(tx)
+
+	mahasiswa, err := m.MahasiswaRepository.FindByID(ctx, tx, id)
+	if err != nil {
+		panic(exeption.NewNotFoundError(err.Error()))
+	}
+
+	return helper.ToMahasiswaResponse(mahasiswa)
+
 }
 
 // Update implements [service.MahasiswaService].

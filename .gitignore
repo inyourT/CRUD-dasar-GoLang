@@ -1,0 +1,43 @@
+# Binary hasil build
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Output build
+/bin/
+/build/
+/dist/
+
+# File hasil testing
+*.test
+*.out
+
+# Go workspace
+go.work
+go.work.sum
+
+# Dependency cache
+/vendor/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.*
+
+# Log files
+*.log
+
+# Temporary files
+tmp/
+temp/
